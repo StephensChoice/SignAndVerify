@@ -106,7 +106,7 @@ module SignAndVerify
         Chef::Log.info("GPG Signed SHA: #{signature}")
         Chef::Log.info("Computed SHA: #{sha}")
 
-        if signature.equal? sha then
+        if signature !=  sha then
           raise "GPG signed SHA '#{signature}' does not match locally computed SHA '#{sha}' for #{name}"
         end
       end
