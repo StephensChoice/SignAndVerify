@@ -3,7 +3,7 @@ Sign Chef cookbooks on workstation and verify cookbooks on node
 
 ## On Chef Workstation
 
-```
+```bash
 brew install coreutils workstation
 /opt/chef-workstation/embedded/bin/gem install gpgme
 ```
@@ -15,6 +15,7 @@ apt install build-essential
 /opt/chef/embedded/bin/gem install gpgme 
 ```
 
+### /etc/chef/client.rb
 ```ruby
 log_level        :info
 log_location     :syslog
