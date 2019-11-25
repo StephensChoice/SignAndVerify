@@ -37,9 +37,9 @@ module SignAndVerify
         raise "Checksum failed for '#{file}', aborting" unless !debug
       end
     end
+    puts sums.sort
     return Digest::SHA256.hexdigest(sums.sort!.join)
   end
-end
 
   class SignCookbook < Chef::Knife
     banner "knife sign cookbook COOKBOOK"
@@ -57,7 +57,7 @@ end
         exit 1
       end
 
-      root = Pathname.new(cookbook)
+      root = Pathname.new(cookbook.chomp('/'))
 
       file_name = root + SignAndVerify::SIGNATURE_FILE
 
