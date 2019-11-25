@@ -19,8 +19,8 @@ apt install build-essential
 ```ruby
 log_level        :info
 log_location     :syslog
-chef_server_url  "https://chef.internet.fo/organizations/ft"
-validation_client_name "ft-validator"
+chef_server_url  "https://chef.server/organizations/myorg"
+validation_client_name "myorg-validator"
 file_backup_path   "/var/lib/chef"
 file_cache_path    "/var/cache/chef"
 pid_file           "/var/run/chef/client.pid"
