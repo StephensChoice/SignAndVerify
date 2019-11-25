@@ -12,15 +12,14 @@ module SignAndVerify
     sums = Array.new
     root = Pathname.new(dir)
     Find.find(dir) do |file|
-
       if ["#{dir}/.gitignore", "#{dir}/#{SignAndVerify::SIGNATURE_FILE}"].include? file then
         puts "Skipping SHA calculation for File #{file}" unless !debug
         next
       end
-
       if File.directory?(file) then
         puts "Skipping SHA calculation for Directory #{file}" unless !debug
-        if file.eql?("#{dir}/.git") then
+
+        if ["#{dir}/.git", "#{dir}/.delivery"].include? file then
           puts "Not entering directory #{file}" unless !debug
           Find.prune()
         else
@@ -33,13 +32,14 @@ module SignAndVerify
         sha = Digest::SHA256.file(file).hexdigest
         sum = "#{sha} #{filepath}"
         sums << sum
-        puts "Computing SHA256 for file #{file}: #{sum}" unless !debug
+        #puts "Computing SHA256 for file #{file}: #{sum}" unless !debug
       rescue
         raise "Checksum failed for '#{file}', aborting" unless !debug
       end
     end
     return Digest::SHA256.hexdigest(sums.sort!.join)
   end
+end
 
   class SignCookbook < Chef::Knife
     banner "knife sign cookbook COOKBOOK"
